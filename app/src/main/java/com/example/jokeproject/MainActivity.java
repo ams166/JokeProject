@@ -59,18 +59,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //an intent to switch to ListActivity
-                Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                intent.putExtra("type", "rad");
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                //intent.putExtra("type", "rad");
+                //startActivity(intent);
             }
         });
         goToSadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //intent to switch to ListActivity
-                Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                intent.putExtra("type", "sad");
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                //intent.putExtra("type", "sad");
+                //startActivity(intent);
             }
         });
     }
