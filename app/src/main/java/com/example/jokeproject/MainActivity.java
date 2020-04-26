@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         getNewJoke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Add code to get a new joke immediately
+                //Add code to ge a new joke immediately
                 Log.i("MainActivity", "Get A New Dad Joke! - Button");
             }
         });
