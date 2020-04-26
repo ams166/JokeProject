@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Add code to get a new joke immediately
+                Log.i("MainActivity", "Get A New Dad Joke! - Button");
             }
         });
 
@@ -37,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
         categorizeJokeGroup.setOnCheckedChangeListener((unused, checkedId) -> {
             if (checkedId == addToRad.getId()) {
                 addToListButton.setVisibility(View.VISIBLE);
+                Log.i("MainActivity", "Add to Rad Jokes - Radio Button");
             }
             if (checkedId == addToSad.getId()) {
                 addToListButton.setVisibility(View.VISIBLE);
+                Log.i("MainActivity", "Add to Rad Jokes - Radio Button");
             }
             // checkedId is the R.id constant of the currently checked RadioButton
         });
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 //Add code for adding current joke to a list
                 //make itself invisible
                 addToListButton.setVisibility(View.INVISIBLE);
+                Log.i("MainActivity", "Add to List - Button");
             }
         });
 
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //an intent to switch to ListActivity
+                Log.i("MainActivity", "Go to Rad List - Button");
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
                 intent.putExtra("type", "rad");
                 startActivity(intent);
@@ -68,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //intent to switch to ListActivity
+                Log.i("MainActivity", "Go to Sad List - Button");
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
                 intent.putExtra("type", "sad");
                 startActivity(intent);
