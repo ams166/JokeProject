@@ -8,14 +8,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONObject;
+
+
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GetJoke extends AppCompatActivity {
     private JSONObject theJoke;
-    public String getTheJoke() {
+    private String funnyBit;
+    private int status;
+    private String id;
+    public JSONObject getTheJoke() {
 
         final TextView textView = (TextView) findViewById((R.id.text));
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -24,6 +30,11 @@ public class GetJoke extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 textView.setText("Response: " + response.toString());
+                JSONObject json = new JSONObject();
+                json = response;
+                theJoke = json;
+
+
 
                 theJoke = response;
 
@@ -39,9 +50,27 @@ public class GetJoke extends AppCompatActivity {
         });
         queue.add(jokeRequest);
 
+        try {
+            funnyBit = (String) theJoke.get("joke");
+            status = (Integer) theJoke.get("status");
+            id = (String) theJoke.get("id");
+            return theJoke;
+        } catch (Exception e){
+            System.out.println("error occured getting joke check getTheJoke");
+            return null;
+        }
+
 
     }
-
+    public String getFunnyBit() {
+        return funnyBit;
+    }
+    public int getStatus() {
+        return status;
+    }
+    public String getId() {
+        return id;
+    }
 
 
 
