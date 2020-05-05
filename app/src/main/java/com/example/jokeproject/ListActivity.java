@@ -11,6 +11,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        getSupportActionBar().setTitle("Your " + getIntent().getStringExtra("type") + " Jokes");
         String jokeOne = getIntent().getStringExtra("joke1");
         String jokeTwo = getIntent().getStringExtra("joke2");
         String jokeThree = getIntent().getStringExtra("joke3");

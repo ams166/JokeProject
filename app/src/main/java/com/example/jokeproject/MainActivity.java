@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //change action bar text
+        getSupportActionBar().setTitle("Dad Jokes For Days");
         //initialize queue for this activity
         queue = Volley.newRequestQueue(this);
 
@@ -106,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //an intent to switch to ListActivity
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                intent.putExtra("type", "Rad Dad");
                 intent.putExtra("joke1", jokesFunctionality.getFromRadList(0));
                 intent.putExtra("joke2", jokesFunctionality.getFromRadList(1));
                 intent.putExtra("joke3", jokesFunctionality.getFromRadList(2));
@@ -119,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //intent to switch to ListActivity
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                intent.putExtra("type", "Sad Lad");
                 intent.putExtra("joke1", jokesFunctionality.getFromSadList(0));
                 intent.putExtra("joke2", jokesFunctionality.getFromSadList(1));
                 intent.putExtra("joke3", jokesFunctionality.getFromSadList(2));
