@@ -21,7 +21,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Add code to get a new joke immediately when launched
         this.getTheJoke();
-        TextView mainJokeText = (TextView) findViewById(R.id.jokeText);
-        mainJokeText.setText(currentJoke);
+
         //This code is for when a user gets a new joke
         Button getNewJoke = findViewById(R.id.getNewJoke);
         getNewJoke.setOnClickListener(new View.OnClickListener() {
@@ -62,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Add code to ge a new joke immediately
                 getTheJoke();
-                TextView mainJokeText = (TextView) findViewById(R.id.jokeText);
-                mainJokeText.setText(currentJoke);
             }
         });
 
@@ -87,12 +87,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Add code for adding current joke to a list (Done?)
                 if (checkedRadioButton == addToRad.getId()) {
-                    jokesFunctionality.addToRad(currentJoke);
+                    jokesFunctionality.addToRad(allJokes.get(1));
                 }
                 if (checkedRadioButton == addToSad.getId()) {
-                    jokesFunctionality.addToSad(currentJoke);
+                    jokesFunctionality.addToSad(allJokes.get(1));
                 }
                 //make itself invisible
+                categorizeJokeGroup.clearCheck();
                 addToListButton.setVisibility(View.INVISIBLE);
             }
         });
@@ -105,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //an intent to switch to ListActivity
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                intent.putExtra("type", "rad");
                 intent.putExtra("joke1", jokesFunctionality.getFromRadList(0));
                 intent.putExtra("joke2", jokesFunctionality.getFromRadList(1));
                 intent.putExtra("joke3", jokesFunctionality.getFromRadList(2));
@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //intent to switch to ListActivity
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                intent.putExtra("type", "sad");
                 intent.putExtra("joke1", jokesFunctionality.getFromSadList(0));
                 intent.putExtra("joke2", jokesFunctionality.getFromSadList(1));
                 intent.putExtra("joke3", jokesFunctionality.getFromSadList(2));
@@ -129,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private List<String> allJokes = new ArrayList<>();
+    private int counter = 0;
     //sets currentJoke to a new joke
     public void getTheJoke() {
         String url = "https://icanhazdadjoke.com/";
@@ -138,15 +139,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    currentJoke = response.getString("joke");
+                    allJokes.add(0, response.getString("joke"));
+                    Log.v("getTheJoke() try", response.getString("joke") + allJokes.get(0) + allJokes.size());
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.v("getTheJoke() fail 1", "there was an error (1)");
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Log.v("getTheJoke() fail 2", "there was an error (2)");
             }
         }) {
 
@@ -161,5 +165,16 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         queue.add(req);
+        if (allJokes.size() > 0) {
+            if (allJokes.get(0) == null) {
+                allJokes.remove(0);
+            }
+            if (allJokes.size() != 0) {
+                TextView mainJokeText = (TextView) findViewById(R.id.jokeText);
+                mainJokeText.setText(allJokes.get(0));
+                Log.v("getTheJoke() end", allJokes.get(0));
+            }
+        }
+        Log.i("getTheJoke() end", "allJokes is empty");
     }
 }

@@ -3,7 +3,6 @@ package com.example.jokeproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 public class ListActivity extends AppCompatActivity {
@@ -12,7 +11,6 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        Log.i("ListActivity", getIntent().getStringExtra("type"));
         String jokeOne = getIntent().getStringExtra("joke1");
         String jokeTwo = getIntent().getStringExtra("joke2");
         String jokeThree = getIntent().getStringExtra("joke3");
